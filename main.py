@@ -44,7 +44,7 @@ class push:
         for job in cur:
             os.chdir('%s/%s' % (job[0], job[1]))
             os.popen('git pull')
-
+            os.popen('nginx -s reload')
         print url
 
         return render.push(data)
