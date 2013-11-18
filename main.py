@@ -24,6 +24,6 @@ class push:
     def POST(self):
         data = web.input()
         #os.popen('nginx -s reload')
-        #for d in data:
-        #    print '%s:%s' % (d, data[d])
+        for d in data:
+            print '%s:' % (d,)
         return render.push(data)
