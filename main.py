@@ -23,7 +23,6 @@ class index:
 class push:
     def POST(self):
         data = web.input()
-        url = data['repository[url]']
-        print url
+        print data
 
         return render.push(data)
