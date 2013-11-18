@@ -42,6 +42,7 @@ class push:
         cur = conn.cursor()
         cur.execute(sql)
         os.popen('git pull %s.git %s/%s' % (url, cur[0], cur[1]))
+
         print url
 
         return render.push(data)
