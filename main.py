@@ -23,6 +23,9 @@ class index:
 class push:
     def POST(self):
         data = web.input()
+        repo = data.repository
+        url = repo['url']
+        print url
         #os.popen('nginx -s reload')
         for d in data:
             print '%s:' % (d,)
