@@ -1,15 +1,33 @@
+$def with (jobs)
 <!DOCTYPE html>
 <html>
 <head>
     <title></title>
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/static/jquery.js"></script>
     <script type="text/javascript" src="/static/main.js"></script>
 </head>
 <body>
 <form method="post" action="/push">
-<input name="username" value="tong">
-<input name="password" value="tonghs">
 <input id="btn" type="button" value="OK">
+<a href='/new_job'>新建</a>
+<table>
+    <tr>
+        <td>id</td>
+        <td>名称</td>
+        <td>地址</td>
+    </tr>
+    $for job in jobs
+    <tr>
+        $for col in job
+        <td>
+            $if loop.last:
+                <a href="$col">$col</a>
+            $else:
+                $col
+        </td>
+    </tr>
+</table>
 </form>
 </body>
 </html>
