@@ -23,7 +23,10 @@ class index:
 
 class push:
     def POST(self):
-        data = json.loads(web.input())
-        print "New commit by: {}".format(data['commits'][0]['author']['name'])
+        data = web.input()
+        data = json.loads(data.payload)
+        url = data['repository']['url']
+        #print "New commit by: {}".format(data['commits'][0]['author']['name'])
+        print url
 
         return render.push(data)
