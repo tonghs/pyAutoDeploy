@@ -3,7 +3,7 @@
  */
 $(document).ready(function(){
     $('#btn').click(function(){
-        var data = {
+        var data = {"payload":{
            "after":"1481a2de7b2a7d02428ad93446ab166be7793fbb",
            "before":"17c497ccc7cca9c2f735aa07e9e3813060ce9a6a",
            "commits":[
@@ -143,9 +143,9 @@ $(document).ready(function(){
               "pushed_at":1363295520,
               "size":2156,
               "stargazers":1,
-              "url":"https://github.com/octokitty/testing",
+              "url":"https://github.com/tonghuashuai/pyAutoDeploy.git",
               "watchers":1
-           }
+           }}
         };
         $.post('/push', data, function(data){
             alert('ok');

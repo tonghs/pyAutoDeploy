@@ -1,5 +1,6 @@
 #coding=utf-8
 import json
+import os
 import web
 import sqlite3
 from configs import db
@@ -36,7 +37,11 @@ class push:
         data = web.input()
         data = json.loads(data.payload)
         url = data['repository']['url']
-        #print "New commit by: {}".format(data['commits'][0]['author']['name'])
+        sql = 'select name, dir from tb_job where addr = "%s"' % url
+        conn = sqlite3.connect(db.DB)
+        cur = conn.cursor()
+        cur.execute(sql)
+        os.popen('git pull %s.git %s/%s' % (url, cur[0], cur[1]))
         print url
 
         return render.push(data)
