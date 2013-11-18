@@ -1,4 +1,5 @@
 #coding=utf-8
+import json
 import web
 import os
 __author__ = 'Administrator'
@@ -22,7 +23,7 @@ class index:
 
 class push:
     def POST(self):
-        data = web.input()
-        print dict(data)['payload']
+        data = json.loads(web.input())
+        print "New commit by: {}".format(data['commits'][0]['author']['name'])
 
         return render.push(data)
