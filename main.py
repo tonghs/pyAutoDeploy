@@ -37,11 +37,13 @@ class push:
         data = web.input()
         data = json.loads(data.payload)
         url = data['repository']['url']
-        sql = 'select name, dir from tb_job where addr = "%s"' % url
+        sql = 'select dir, name from tb_job where addr = "%s.git"' % url
         conn = sqlite3.connect(db.DB)
         cur = conn.cursor()
         cur.execute(sql)
-        os.popen('git pull %s.git %s/%s' % (url, cur[0], cur[1]))
+        for job in cur:
+            os.chdir('%s/%s' % (job[0], job[1]))
+            os.popen('git pull')
 
         print url
 
