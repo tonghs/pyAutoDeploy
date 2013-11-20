@@ -22,9 +22,8 @@ urls = (
 app = web.application(urls, globals())
 render = web.template.render('templates/', base='base')
 
-class WebService(Daemon):
-        def run(self):
-            app.run()
+
+application = app.wsgifunc()
 
 if __name__ == '__main__':
     app.run()
