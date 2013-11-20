@@ -57,7 +57,7 @@ class push:
             os.popen('chmod 777 cmd.sh')
             os.popen('./cmd.sh')
             conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job[2])))
-        print url
+        #print url
 
         return ''
 
