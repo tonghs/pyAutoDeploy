@@ -1,0 +1,25 @@
+$def with (content)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>$content.title</title>
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="wrapper">
+        <div id="title" class="float_l">pyAutoDeploy</div>
+        <div id="sub_title" class="float_l">
+            $$ git push<br>
+            $$ and then ?
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="wrapper">
+$:content
+</div>
+</body>
+</html>

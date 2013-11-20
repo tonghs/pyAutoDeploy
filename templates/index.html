@@ -1,33 +1,27 @@
 $def with (jobs)
-<!DOCTYPE html>
-<html>
-<head>
-    <title>首页</title>
-    <link href="/static/css/main.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="/static/jquery.js"></script>
-    <script type="text/javascript" src="/static/main.js"></script>
-</head>
-<body>
+$var title:
+    首页
 <form method="post" action="/push">
-<input id="btn" type="button" value="OK">
+    <input id="btn" type="button" value="OK">
+</form>
 <a href='/new_job'>新建</a>
 <table>
     <tr>
-        <td>id</td>
         <td>名称</td>
         <td>地址</td>
+        <td>最后执行时间</td>
+        <td>立即执行</td>
+        <td>删除</td>
     </tr>
     $for job in jobs
     <tr>
         $for col in job
-        <td>
-            $if loop.last:
-                <a href="$col">$col</a>
+            $if loop.index == 2:
+                <td><a href="$col">$col</a></td>
+            $elif loop.last:
+                <td><a href="/execute/$col">执行一次</a></td>
+                <td><a href="/del/$col">删除</a></td>
             $else:
-                $col
-        </td>
+                <td>$col</td>
     </tr>
 </table>
-</form>
-</body>
-</html>

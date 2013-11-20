@@ -1,4 +1,6 @@
-html, body, table{
+html body{
+    background-color: #f5f5f5;
+    font-size: 14px;
     margin: 0;
     padding: 0;
 }
@@ -7,4 +9,39 @@ table, td {
     border:1px solid #cccccc;
     border-collapse:collapse;
     padding: 3px;
+}
+
+input[type=text]{
+    width: 400px;
+}
+
+.wrapper{
+    margin: auto auto;
+    width: 940px;
+}
+
+.header{
+    background-color: black;
+    color: white;
+    margin-bottom: 10px;
+}
+
+#title{
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 60px;
+    margin-right: 10px;
+}
+
+#sub_title{
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.float_l{
+    float: left;
+}
+
+.clear{
+    clear: both;
 }
