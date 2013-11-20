@@ -26,11 +26,13 @@ input[type=text]{
     margin-bottom: 10px;
 }
 
-#title{
+#title a{
+    color: white;
     font-weight: bold;
     font-size: 30px;
     line-height: 60px;
     margin-right: 10px;
+    text-decoration: none;
 }
 
 #sub_title{

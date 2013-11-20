@@ -20,11 +20,12 @@ function del(id, obj){
 function execute(id, obj){
     $.post('/execute', {'id': id}, function(data){
         if (data != null && data != ''){
-            if (data != 'fail') {
-                obj.parent().parent().children('.state').html('已成功');
+            data = JSON.parse(data);
+            obj.parent().parent().children('.state').html(data.msg);
+            obj.parent().parent().children('.exe_time').html(data.exe_time);
+            if (data.msg == '已成功') {
                 obj.parent().parent().children('.state').css('color', 'green');
             } else {
-                obj.parent().parent().children('.state').html('已失败');
                 obj.parent().parent().children('.state').css('color', 'red');
             }
         }

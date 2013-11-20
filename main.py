@@ -43,10 +43,11 @@ class index:
 
 class push:
     def POST(self):
+        exe_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
         data = web.input()
         data = json.loads(data.payload)
         url = data['repository']['url']
-        sql = 'select dir, name from tb_job where addr = "%s"' % url
+        sql = 'select dir, name, id from tb_job where addr = "%s"' % url
         conn = sqlite3.connect(db.DB)
         cur = conn.cursor()
         cur.execute(sql)
@@ -55,9 +56,10 @@ class push:
             os.popen('git pull')
             os.popen('chmod 777 cmd.sh')
             os.popen('./cmd.sh')
+            conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job[2])))
         print url
 
-        return render.push(data)
+        return ''
 
 
 class install:
@@ -102,7 +104,7 @@ class delete:
 
 class execute:
     def POST(self):
-        exe_time = datetime.now().strftime('%Y-%m-%d %H-%m-%s')
+        exe_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
         dic_ret = {'msg': setting.STR_MSG_FAIL, 'exe_time': exe_time}
         data = web.input()
         job_id = data.id
@@ -121,7 +123,7 @@ class execute:
                 conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job_id)))
             except Exception:
                 dic_ret['msg'] = setting.STR_MSG_FAIL
-                conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job_id)))
+                conn.execute(db.UPDATE_JOB % (setting.STR_MSG_FAIL, exe_time, int(job_id)))
 
         conn.commit()
         cur.close()
