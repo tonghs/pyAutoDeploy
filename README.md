@@ -1,6 +1,6 @@
 pyAutoDeploy
 ============
-自动部署工具
+GitHub 项目自动部署工具
 
 **系统要求**
 
@@ -31,7 +31,11 @@ Python（2.7） + web.py
 
 1. 新建 job
 2. 输入 GitHub 项目地址（结尾没有 .git），
-3. 输入工作目录，项目将 pull 到输入的目录中。
+3. 输入工作目录，项目文件将 pull 到输入的目录中。
+4. 在 GitHub 项目中设置 WebHook URL：http://公网域名或ip:8080/push
+5. 在 GitHub 项目中添加 cmd.sh 文件，可维护 cmd.sh 文件添加在 pull 代码后要执行的命令。
+
+至此，向 GitHub push 代码后 pyAutoDeploy 将会 pull 代码到本地，然后执行 cmd.sh 中的命令。
 
 **to do**
 * 添加执行日志
