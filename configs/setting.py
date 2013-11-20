@@ -1,5 +1,10 @@
 #coding=utf-8
+import os
+
 __author__ = 'Administrator'
+
+CUR_DIR = '%s/%%s' % os.getcwd()
+
 
 STR_STATUS_SUCCESS = 'success'
 STR_STATUS_FAIL = 'fail'

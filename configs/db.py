@@ -1,7 +1,9 @@
 #coding=utf-8
+from configs import setting
+
 __author__ = '华帅'
 
-DB = 'db'
+DB = setting.CUR_DIR % 'db'
 
 CREATE_JOB_SQL = 'create table tb_job (id integer primary key autoincrement, name varchar(100), dir varchar(100), ' \
                  'addr varchar(500), exe_time datetime, status varchar(10));'

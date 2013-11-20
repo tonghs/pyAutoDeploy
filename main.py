@@ -20,7 +20,7 @@ urls = (
 )
 
 app = web.application(urls, globals())
-render = web.template.render('templates/', base='base')
+render = web.template.render(setting.CUR_DIR % 'templates/', base='base')
 
 
 application = app.wsgifunc()
@@ -55,14 +55,13 @@ class push:
         cur = conn.cursor()
         cur.execute(sql)
         for job in cur:
-            curdir = os.getcwd()
             os.chdir('%s/%s' % (job[0], job[1]))
             os.popen('git pull')
             os.popen('chmod 777 cmd.sh')
             os.popen('./cmd.sh')
             os.popen('chmod 644 cmd.sh')
             #返回原路径
-            os.chdir(curdir)
+            os.chdir(setting.CUR_DIR % '')
             conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job[2])))
 
         conn.commit()
