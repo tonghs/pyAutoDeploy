@@ -1,1 +1,1 @@
-nginx -s reload
+nginx -s stop
