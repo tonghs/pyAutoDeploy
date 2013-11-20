@@ -1,5 +1,5 @@
 <uwsgi>
-	<socket>:8080</socket>
+	<socket>:8002</socket>
 	<master>true</master>
 	<chdir>./</chdir>
 	<module>main</module>
