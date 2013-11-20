@@ -1,7 +1,7 @@
 #coding=utf-8
 __author__ = '华帅'
 
-DB = '/home/tonghs/pyAutoDeploy/db'
+DB = 'db'
 
 CREATE_JOB_SQL = 'create table tb_job (id integer primary key autoincrement, name varchar(100), dir varchar(100), ' \
                  'addr varchar(500), exe_time datetime, status varchar(10));'
