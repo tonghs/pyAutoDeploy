@@ -18,6 +18,7 @@ function del(id, obj){
 }
 
 function execute(id, obj){
+    obj.parent().parent().children('.state').html('执行中');
     $.post('/execute', {'id': id}, function(data){
         if (data != null && data != ''){
             data = JSON.parse(data);
