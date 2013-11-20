@@ -55,14 +55,17 @@ class push:
         cur = conn.cursor()
         cur.execute(sql)
         for job in cur:
-            os.chdir('%s/%s' % (job[0], job[1]))
-            os.popen('git pull')
-            os.popen('chmod 777 cmd.sh')
-            os.popen('./cmd.sh')
-            os.popen('chmod 644 cmd.sh')
-            #返回原路径
-            os.chdir(setting.CUR_DIR % '')
-            conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job[2])))
+            try:
+                os.chdir('%s/%s' % (job[0], job[1]))
+                os.popen('git pull')
+                os.popen('chmod 777 cmd.sh')
+                os.popen('./cmd.sh')
+                os.popen('chmod 644 cmd.sh')
+                #返回原路径
+                os.chdir(setting.CUR_DIR % '')
+                conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job[2])))
+            except Exception:
+                conn.execute(db.UPDATE_JOB % (setting.STR_MSG_FAIL, exe_time, int(job[2])))
 
         conn.commit()
         cur.close()
