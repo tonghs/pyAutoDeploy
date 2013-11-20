@@ -26,6 +26,7 @@ input[type=text]{
     margin-bottom: 10px;
 }
 
+
 #title a{
     color: white;
     font-weight: bold;
@@ -46,4 +47,20 @@ input[type=text]{
 
 .clear{
     clear: both;
+}
+
+.footer{
+    background-color: black;
+    color: #f5f5f5;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 0;
+    text-align: center;
+}
+
+.footer a{
+    color: #f5f5f5;
+
+    text-decoration: none;
 }
