@@ -8,3 +8,25 @@ $(document).ready(function(){
         });
     });
 });
+
+function del(id, obj){
+    $.post('/del', {'id': id}, function(data){
+        if (data == 'success'){
+            obj.parent().parent().fadeOut();
+        }
+    });
+}
+
+function execute(id, obj){
+    $.post('/execute', {'id': id}, function(data){
+        if (data != null && data != ''){
+            if (data != 'fail') {
+                obj.parent().parent().children('.state').html('已成功');
+                obj.parent().parent().children('.state').css('color', 'green');
+            } else {
+                obj.parent().parent().children('.state').html('已失败');
+                obj.parent().parent().children('.state').css('color', 'red');
+            }
+        }
+    });
+}

@@ -4,23 +4,26 @@ $var title:
 <form method="post" action="/push">
     <input id="btn" type="button" value="OK">
 </form>
-<a href='/new_job'>新建</a>
+<a href='/add'>新建</a>
 <table>
     <tr>
+        <td>状态</td>
         <td>名称</td>
         <td>地址</td>
         <td>最后执行时间</td>
-        <td>立即执行</td>
+        <td>执行</td>
         <td>删除</td>
     </tr>
     $for job in jobs
     <tr>
         $for col in job
-            $if loop.index == 2:
+            $if loop.index == 1:
+                <td>$col</td>
+            $elif loop.index == 3:
                 <td><a href="$col">$col</a></td>
             $elif loop.last:
-                <td><a href="/execute/$col">执行一次</a></td>
-                <td><a href="/del/$col">删除</a></td>
+                <td><input type="button" value="执行" onclick="execute($col,$$(this));" /></td>
+                <td><input type="button" value="删除" onclick="del($col,$$(this));" /></td>
             $else:
                 <td>$col</td>
     </tr>
