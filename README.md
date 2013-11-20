@@ -14,11 +14,11 @@ Python（2.7） + web.py
 
 假设已安装 `Python` `web.py` `nginx` `uWSGI`。
 
-    git clone https://github.com/tonghuashuai/pyAutoDeploy
+    sudo git clone https://github.com/tonghuashuai/pyAutoDeploy
     cd pyAutoDeploy
-    touch uwsgi.pid
+    sudo touch uwsgi.pid
     sudo uwsgi -x auto.xml
-    vim pyAutoDeploy
+    sudo vim pyAutoDeploy
 
 根据实际情况修改域名（ip）和 static 路径地址。
 
