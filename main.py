@@ -22,6 +22,10 @@ urls = (
 app = web.application(urls, globals())
 render = web.template.render('templates/', base='base')
 
+class WebService(Daemon):
+        def run(self):
+            app.run()
+
 if __name__ == '__main__':
     app.run()
 
@@ -58,8 +62,10 @@ class push:
             os.popen('./cmd.sh')
             os.popen('chmod 644 cmd.sh')
             conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job[2])))
-        #print url
 
+        conn.commit()
+        cur.close()
+        conn.close()
         return ''
 
 
