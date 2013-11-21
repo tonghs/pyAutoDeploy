@@ -54,3 +54,7 @@ Python（2.7） + web.py
 **其他**
 
 demo：http://tonghs.cn:8080 （demo 中已有的项目请不要删除，谢谢。）
+
+项目博客：http://www.tonghs.com/?cat=588
+
+@tonghs：http://www.tonghs.com
