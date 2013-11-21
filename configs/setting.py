@@ -3,8 +3,7 @@ import os
 
 __author__ = 'Administrator'
 
-CUR_DIR_ORI = os.getcwd()
-CUR_DIR = '%s/%%s' % CUR_DIR_ORI
+CUR_DIR = '%s/%%s' % os.getcwd()
 
 
 STR_STATUS_SUCCESS = 'success'
