@@ -33,16 +33,16 @@ def execute(key, value, exe_time):
             content += os.popen('git pull').read()
 
             #返回原路径
-            content += '<br>$ cd %s<br>' % (setting.CUR_DIR % '')
+            content += '<br>$ cd %s' % (setting.CUR_DIR % '')
             os.chdir(setting.CUR_DIR % '')
 
-            content += '<br>$ chmod 777 %scmd.sh<br>' % project_dir
+            content += '<br>$ chmod 777 %scmd.sh' % project_dir
             content += os.popen('chmod 777 %scmd.sh' % project_dir).read()
 
             content += '<br>$ %s/cmd.sh<br>' % project_dir
             content += os.popen('%s/cmd.sh' % project_dir).read()
 
-            content += '<br>$ chmod 644 %scmd.sh<br>' % project_dir
+            content += '<br>$ chmod 644 %scmd.sh' % project_dir
             content += os.popen('chmod 644 %scmd.sh' % project_dir).read()
 
             conn.execute(db.UPDATE_JOB % (setting.STATE_SUCCESS, exe_time, int(job[2])))
