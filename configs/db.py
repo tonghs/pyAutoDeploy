@@ -24,7 +24,7 @@ UPDATE_JOB = 'update tb_job set state = "%s", exe_time = "%s" where id = %d;'
 DELETE_JOB = 'delete from tb_job where id = %d;'
 
 # 日志相关
-SELECT_LOG = 'select id, exe_time, state from tb_log where job_id = %d;'
+SELECT_LOG = 'select id, exe_time, state from tb_log where job_id = %d order by exe_time desc;'
 SELECT_LOG_CONTENT_BY_ID = 'select content from tb_log where id = %d;'
 
 INSERT_TO_LOG = 'insert into tb_log (job_id, exe_time, state, content) values (%d, "%s", %d, "%s");'

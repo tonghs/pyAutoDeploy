@@ -52,7 +52,7 @@ def execute(key, value, exe_time):
         except Exception, e:
             ret_msg = setting.STATE_FAIL
             content += '<br><br>************发生错误************<br><br>'
-            content += '返回原路径<br>'
+            content += '<br>cd %s<br>' % (setting.CUR_DIR % '')
             #返回原路径
             os.chdir(setting.CUR_DIR % '')
             content += '<br>错误:<br> %s' % e
