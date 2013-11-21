@@ -79,3 +79,7 @@ input[type=text]{
 .state2{
     color: black;
 }
+
+.cmd{
+    font-family: 'Courier New';
+}
