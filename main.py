@@ -23,7 +23,6 @@ urls = (
 app = web.application(urls, globals())
 render = web.template.render(setting.CUR_DIR % 'templates/', base='base')
 
-
 application = app.wsgifunc()
 
 if __name__ == '__main__':
@@ -31,17 +30,25 @@ if __name__ == '__main__':
 
 
 class faviconICO(object):
-   def GET(self):
-       return web.seeother('/static/images/favicon.ico')
+    def GET(self):
+        return web.seeother('/static/images/favicon.ico')
+
 
 class index:
     def GET(self):
         conn = sqlite3.connect(db.DB)
         cur = conn.cursor()
-        cur.execute('select status, name, url, exe_time, id from tb_job;')
+        cur.execute(db.SELECT_JOB)
         jobs = []
         for job in cur:
-            jobs.append(job)
+            state = job[0]
+            state_text = setting.STATUS[int(job[0])]
+            name = job[1]
+            url = job[2]
+            exe_time = job[3]
+            id = job[4]
+            dic_job = {'state': state, 'state_text': state_text, 'name': name, 'url': url, 'exe_time': exe_time, 'id': id }
+            jobs.append(dic_job)
         return render.index(jobs)
 
 
@@ -75,7 +82,7 @@ class add:
         name = url[url.rfind('/') + 1:]
         dir = data.dir
         conn = sqlite3.connect(db.DB)
-        conn.execute(db.INSERT_TO_JOB % (unicode(setting.STR_MSG_WAITIMG, "utf-8"), name, dir, url))
+        conn.execute(db.INSERT_TO_JOB % (setting.STATE_WAITING, name, dir, url))
         conn.commit()
         conn.close()
 
@@ -98,10 +105,12 @@ class delete:
 class execute:
     def POST(self):
         exe_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-        dic_ret = {'msg': setting.STR_MSG_FAIL, 'exe_time': exe_time}
+        dic_ret = {'state': setting.STATE_FAIL, 'msg': setting.STATUS[int(setting.STATE_FAIL)], 'exe_time': exe_time}
         data = web.input()
         job_id = data.id
 
-        dic_ret['msg'] = util.execute('id', job_id, exe_time)
+        state = util.execute('id', job_id, exe_time)
+        dic_ret['msg'] = setting.STATUS[int(state)]
+        dic_ret['state'] = state
 
         return json.dumps(dic_ret)

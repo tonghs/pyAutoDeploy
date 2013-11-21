@@ -7,7 +7,7 @@ __author__ = 'Administrator'
 
 
 def execute(key, value, exe_time):
-    ret_msg = setting.STR_MSG_FAIL
+    ret_msg = setting.STATE_FAIL
     if key == 'url':
         sql = db.SELECT_DIR_FROM_JOB_BY_URL % value
     elif key == 'id':
@@ -31,13 +31,13 @@ def execute(key, value, exe_time):
             os.popen('chmod 777 %scmd.sh' % project_dir)
             os.popen('%s/cmd.sh' % project_dir)
             os.popen('chmod 644 %scmd.sh' % project_dir)
-            conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job[2])))
-            ret_msg = setting.STR_MSG_SUCCESS
+            conn.execute(db.UPDATE_JOB % (setting.STATE_SUCCESS, exe_time, int(job[2])))
+            ret_msg = setting.STATE_SUCCESS
         except Exception:
             #返回原路径
             os.chdir(setting.CUR_DIR % '')
-            conn.execute(db.UPDATE_JOB % (setting.STR_MSG_FAIL, exe_time, int(job[2])))
-            ret_msg = setting.STR_MSG_FAIL
+            conn.execute(db.UPDATE_JOB % (setting.STATE_FAIL, exe_time, int(job[2])))
+            ret_msg = setting.STATE_FAIL
 
     conn.commit()
     cur.close()

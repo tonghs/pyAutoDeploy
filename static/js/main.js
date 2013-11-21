@@ -27,14 +27,11 @@ function execute(id, obj){
     obj.parent().parent().children('.state').html('执行中');
     $.post('/execute', {'id': id}, function(data){
         if (data != null && data != ''){
-            data = JSON.parse(data);
+            data = $.parseJSON(data);
             obj.parent().parent().children('.state').html(data.msg);
             obj.parent().parent().children('.exe_time').html(data.exe_time);
-            if (data.msg == '已成功') {
-                obj.parent().parent().children('.state').css('color', 'green');
-            } else {
-                obj.parent().parent().children('.state').css('color', 'red');
-            }
+            obj.parent().parent().children('.state').css('class', 'state state' + data.state);
+
         }
     });
 }

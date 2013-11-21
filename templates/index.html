@@ -19,12 +19,12 @@ $var title:
     </tr>
     $for job in jobs
     <tr>
-        <td class="state">$job[0]</td>
-        <td><a href="#">$job[1]</a></td>
-        <td><a href="$job[2]">$job[2]</a></td>
-        <td class="exe_time">$job[3]</td>
-        <td><input type="button" value="执行" onclick="execute($job[4],$$(this));" /></td>
-        <td><input type="button" value="删除" onclick="del($job[4],$$(this));" /></td>
+        <td class="state state$job['state']">$job['state_text']</td>
+        <td><a href="#">$job['name']</a></td>
+        <td><a href="$job['url']">$job['url']</a></td>
+        <td class="exe_time">$job['exe_time']</td>
+        <td><input type="button" value="执行" onclick="execute($job['id'],$$(this));" /></td>
+        <td><input type="button" value="删除" onclick="del($job['id'],$$(this));" /></td>
 
     </tr>
 </table>

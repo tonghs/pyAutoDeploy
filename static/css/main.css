@@ -64,3 +64,18 @@ input[type=text]{
 
     text-decoration: none;
 }
+
+.state{
+    color: black;
+    font-weight: bold;
+}
+
+.state0{
+    color: red;
+}
+.state1{
+    color: green;
+}
+.state2{
+    color: black;
+}
