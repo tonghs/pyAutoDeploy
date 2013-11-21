@@ -6,6 +6,7 @@ import web
 import sqlite3
 from configs import db
 from configs import setting
+import util
 
 __author__ = 'Administrator'
 
@@ -37,7 +38,7 @@ class index:
     def GET(self):
         conn = sqlite3.connect(db.DB)
         cur = conn.cursor()
-        cur.execute('select status, name, addr, exe_time, id from tb_job;')
+        cur.execute('select status, name, url, exe_time, id from tb_job;')
         jobs = []
         for job in cur:
             jobs.append(job)
@@ -50,26 +51,7 @@ class push:
         data = web.input()
         data = json.loads(data.payload)
         url = data['repository']['url']
-        sql = 'select dir, name, id from tb_job where addr = "%s"' % url
-        conn = sqlite3.connect(db.DB)
-        cur = conn.cursor()
-        cur.execute(sql)
-        for job in cur:
-            try:
-                os.chdir('%s/%s' % (job[0], job[1]))
-                os.popen('git pull')
-                os.popen('chmod 777 cmd.sh')
-                os.popen('./cmd.sh')
-                os.popen('chmod 644 cmd.sh')
-                #返回原路径
-                os.chdir(setting.CUR_DIR % '')
-                conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job[2])))
-            except Exception:
-                conn.execute(db.UPDATE_JOB % (setting.STR_MSG_FAIL, exe_time, int(job[2])))
-
-        conn.commit()
-        cur.close()
-        conn.close()
+        util.execute('url', url, exe_time)
         return ''
 
 
@@ -89,11 +71,11 @@ class add:
 
     def POST(self):
         data = web.input()
-        addr = data.addr
-        name = addr[addr.rfind('/') + 1:]
+        url = data.url
+        name = url[url.rfind('/') + 1:]
         dir = data.dir
         conn = sqlite3.connect(db.DB)
-        conn.execute(db.INSERT_TO_JOB % (unicode(setting.STR_MSG_WAITIMG, "utf-8"), name, dir, addr))
+        conn.execute(db.INSERT_TO_JOB % (unicode(setting.STR_MSG_WAITIMG, "utf-8"), name, dir, url))
         conn.commit()
         conn.close()
 
@@ -120,24 +102,6 @@ class execute:
         data = web.input()
         job_id = data.id
 
-        conn = sqlite3.connect(db.DB)
-        cur = conn.cursor()
-        cur.execute(db.SELECT_DIR_FROM_JOB % int(job_id))
-        jobs = cur.fetchall()
-        if len(jobs):
-            job = jobs[0]
-            try:
-                os.chdir('%s/%s' % (job[0], job[1]))
-                os.popen('chmod 777 cmd.sh')
-                os.popen('./cmd.sh')
-                dic_ret['msg'] = setting.STR_MSG_SUCCESS
-                conn.execute(db.UPDATE_JOB % (setting.STR_MSG_SUCCESS, exe_time, int(job_id)))
-            except Exception:
-                dic_ret['msg'] = setting.STR_MSG_FAIL
-                conn.execute(db.UPDATE_JOB % (setting.STR_MSG_FAIL, exe_time, int(job_id)))
-
-        conn.commit()
-        cur.close()
-        conn.close()
+        dic_ret['msg'] = util.execute('id', job_id, exe_time)
 
         return json.dumps(dic_ret)
