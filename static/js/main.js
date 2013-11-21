@@ -9,10 +9,11 @@ $(document).ready(function(){
 //        });
 //    });
     resize();
+    $(window).resize(resize);
 });
 
 function resize(){
-        $('.main').css('min-height', $(window).height() - 100)
+    $('.main').css('min-height', $(window).height() - 100)
 }
 
 function del(id, obj){
