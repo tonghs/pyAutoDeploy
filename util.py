@@ -26,14 +26,14 @@ def execute(key, value, exe_time):
         job = jobs[0]
         try:
             project_dir = '%s/%s/' % (job[0], job[1])
-            content += 'cd %s<br>' % project_dir
+            content += '$ cd %s' % project_dir
             os.chdir(project_dir)
 
             content += '<br>$ git pull<br>'
             content += os.popen('git pull').read()
 
             #返回原路径
-            content += '<br>cd %s<br>' % (setting.CUR_DIR % '')
+            content += '<br><br>$ cd %s' % (setting.CUR_DIR % '')
             os.chdir(setting.CUR_DIR % '')
 
             content += '<br>$ chmod 777 %scmd.sh<br>' % project_dir
@@ -42,7 +42,7 @@ def execute(key, value, exe_time):
             content += '<br>$ %s/cmd.sh<br>' % project_dir
             content += os.popen('%s/cmd.sh' % project_dir).read()
 
-            content += '<br>$ chmod 644 %scmd.sh<br>' % project_dir
+            content += '<br><br>$ chmod 644 %scmd.sh<br>' % project_dir
             content += os.popen('chmod 644 %scmd.sh' % project_dir).read()
 
             conn.execute(db.UPDATE_JOB % (setting.STATE_SUCCESS, exe_time, int(job[2])))
