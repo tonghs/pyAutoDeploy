@@ -49,13 +49,13 @@ def execute(key, value, exe_time):
             ret_msg = setting.STATE_SUCCESS
 
             conn.execute(db.INSERT_TO_LOG % (int(job[2]), exe_time, ret_msg, content))
-        except Exception as e:
+        except Exception, e:
             ret_msg = setting.STATE_FAIL
             content += '<br><br>************发生错误************<br><br>'
             content += '返回原路径<br>'
             #返回原路径
             os.chdir(setting.CUR_DIR % '')
-            content += '<br>错误信息:<br> %s' % e.message
+            content += '<br>错误:<br> %s' % e
             conn.execute(db.UPDATE_JOB % (setting.STATE_FAIL, exe_time, int(job[2])))
             conn.execute(db.INSERT_TO_LOG % (int(job[2]), exe_time, ret_msg, content))
 
