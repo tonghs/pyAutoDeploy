@@ -37,6 +37,12 @@ def internalerror():
     return web.internalerror(render_without_base.error('500!'))
 
 
+application = app
+application.notfound = app.notfound = notfound
+application.internalerror = app.internalerror = internalerror
+application = app.wsgifunc()
+
+
 class faviconICO(object):
     def GET(self):
         return web.seeother('/static/images/favicon.ico')
@@ -152,10 +158,6 @@ class detail:
 
 
 if __name__ == '__main__':
-    application = app
-    application.notfound = app.notfound = notfound
-    application.internalerror = app.internalerror = internalerror
-    application = app.wsgifunc()
     #app.notfound = notfound
     #app.internalerror = internalerror
     app.run()
