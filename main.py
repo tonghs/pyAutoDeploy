@@ -54,7 +54,7 @@ class index:
 
 class push:
     def POST(self):
-        exe_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
+        exe_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         data = web.input()
         data = json.loads(data.payload)
         url = data['repository']['url']
@@ -104,7 +104,7 @@ class delete:
 
 class execute:
     def POST(self):
-        exe_time = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
+        exe_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         dic_ret = {'state': setting.STATE_FAIL, 'msg': setting.STATUS[int(setting.STATE_FAIL)], 'exe_time': exe_time}
         data = web.input()
         job_id = data.id

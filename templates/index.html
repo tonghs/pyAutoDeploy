@@ -12,19 +12,18 @@ $var title:
     <tr>
         <td>状态</td>
         <td>名称</td>
-        <td>地址</td>
         <td>最后执行时间</td>
+        <td>历史日志</td>
         <td>执行</td>
         <td>删除</td>
     </tr>
     $for job in jobs
     <tr>
         <td class="state state$job['state']">$job['state_text']</td>
-        <td><a href="#">$job['name']</a></td>
-        <td><a href="$job['url']">$job['url']</a></td>
+        <td><a href="$job['url']" title="在 GitHub 查看该项目">$job['name']</a></td>
         <td class="exe_time">$job['exe_time']</td>
+        <td><a href="#" title="查看历史执行">查看历史</a></td>
         <td><input type="button" value="执行" onclick="execute($job['id'],$$(this));" /></td>
         <td><input type="button" value="删除" onclick="del($job['id'],$$(this));" /></td>
-
     </tr>
 </table>
