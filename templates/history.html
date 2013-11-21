@@ -1,0 +1,14 @@
+$def with (list_dic)
+$var title:
+    查看历史
+<table>
+    <tr>
+        <td>执行时间</td>
+        <td>状态</td>
+    </tr>
+    $for his in list_dic
+    <tr>
+        <td><a href="/detail/$his['id']" title="查看详细">$his['exe_time']</a></td>
+        <td class="state state$his['state']">$his['state_text']</td>
+    </tr>
+</table>

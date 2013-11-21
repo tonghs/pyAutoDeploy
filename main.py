@@ -18,6 +18,8 @@ urls = (
     '/add', 'add',
     '/del', 'delete',
     '/execute', 'execute',
+    '/history/(\d+)', 'history',
+    '/detail/(\d+)', 'detail'
 )
 
 app = web.application(urls, globals())
@@ -114,3 +116,30 @@ class execute:
         dic_ret['state'] = state
 
         return json.dumps(dic_ret)
+
+
+class history:
+    def GET(self, job_id=0):
+        conn = sqlite3.connect(db.DB)
+        cur = conn.cursor()
+        cur.execute(db.SELECT_LOG % int(job_id))
+        list_his = cur.fetchall()
+        list_dic = []
+        if len(list_his):
+            for his in list_his:
+                dic = {'id': his[0], 'exe_time': his[1], 'state': his[2], 'state_text': setting.STATUS[int(his[2])]}
+                list_dic.append(dic)
+
+        return render.history(list_dic)
+
+
+class detail:
+    def GET(self, log_id=0):
+        conn = sqlite3.connect(db.DB)
+        cur = conn.cursor()
+        cur.execute(db.SELECT_LOG_CONTENT_BY_ID % int(log_id))
+        list_log = cur.fetchall()
+        if len(list_log):
+            log = list_log[0][0]
+
+        return render.detail(log)

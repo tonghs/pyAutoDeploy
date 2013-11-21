@@ -24,14 +24,17 @@ function del(id, obj){
 }
 
 function execute(id, obj){
+    obj.parent().parent().children('.state').attr('class', 'state');
     obj.parent().parent().children('.state').html('执行中');
     $.post('/execute', {'id': id}, function(data){
         if (data != null && data != ''){
             data = $.parseJSON(data);
             obj.parent().parent().children('.state').html(data.msg);
             obj.parent().parent().children('.exe_time').html(data.exe_time);
-            obj.parent().parent().children('.state').css('class', 'state state' + data.state);
+            obj.parent().parent().children('.state').attr('class', 'state state' + data.state);
 
         }
-    });
+    }).error(function(){
+
+        });
 }

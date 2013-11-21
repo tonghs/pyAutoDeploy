@@ -2,7 +2,9 @@
 import os
 import sqlite3
 from configs import setting, db
-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 __author__ = 'Administrator'
 
 
@@ -19,28 +21,53 @@ def execute(key, value, exe_time):
     cur = conn.cursor()
     cur.execute(sql)
     jobs = cur.fetchall()
-
+    content = ''
     if len(jobs):
         job = jobs[0]
         try:
             project_dir = '%s/%s/' % (job[0], job[1])
+            content += 'cd %s<br>' % project_dir
             os.chdir(project_dir)
-            os.popen('git pull')
+
+            content += '<br><br>$ git pull:<br>'
+            content += os.popen('git pull').read()
+
             #返回原路径
+            content += '<br><br>返回原路径<br>'
             os.chdir(setting.CUR_DIR % '')
-            os.popen('chmod 777 %scmd.sh' % project_dir)
-            os.popen('%s/cmd.sh' % project_dir)
-            os.popen('chmod 644 %scmd.sh' % project_dir)
+
+            content += '<br><br>$ chmod 777 %scmd.sh:<br>' % project_dir
+            content += os.popen('chmod 777 %scmd.sh' % project_dir).read()
+
+            content += '<br><br>$ %s/cmd.sh:<br>' % project_dir
+            content += os.popen('%s/cmd.sh' % project_dir).read()
+
+            content += '<br><br>$ chmod 644 %scmd.sh:<br>' % project_dir
+            content += os.popen('chmod 644 %scmd.sh' % project_dir).read()
+
             conn.execute(db.UPDATE_JOB % (setting.STATE_SUCCESS, exe_time, int(job[2])))
             ret_msg = setting.STATE_SUCCESS
-        except Exception:
+
+            conn.execute(db.INSERT_TO_LOG % (int(job[2]), exe_time, ret_msg, content))
+        except Exception as e:
+            ret_msg = setting.STATE_FAIL
+            content += '<br><br>************发生错误************<br><br>'
+            content += '返回原路径<br>'
             #返回原路径
             os.chdir(setting.CUR_DIR % '')
+            content += '<br>错误信息:<br> %s' % e.message
             conn.execute(db.UPDATE_JOB % (setting.STATE_FAIL, exe_time, int(job[2])))
-            ret_msg = setting.STATE_FAIL
+            conn.execute(db.INSERT_TO_LOG % (int(job[2]), exe_time, ret_msg, content))
 
     conn.commit()
     cur.close()
     conn.close()
 
     return ret_msg
+
+
+def insert_to_log(conn, job_id, exe_time, state, content):
+    conn = sqlite3.connect(db.DB)
+    conn.execute(db.INSERT_TO_LOG % (int(job_id), exe_time, state, content))
+    conn.commit()
+    conn.close()
