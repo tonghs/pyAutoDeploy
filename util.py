@@ -54,7 +54,7 @@ def execute(key, value, exe_time):
             content += '<br><br>************发生错误************<br><br>'
             #返回原路径
             os.chdir(setting.CUR_DIR % '')
-            content += e
+            content += '%s' % e
             conn.execute(db.UPDATE_JOB % (setting.STATE_FAIL, exe_time, int(job[2])))
             conn.execute(db.INSERT_TO_LOG % (int(job[2]), exe_time, ret_msg, content))
 
