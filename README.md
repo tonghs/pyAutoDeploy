@@ -4,6 +4,7 @@ pyAutoDeploy
 
 
 **定义**
+
 `GitHub` 项目：您要部署的，托管在 `GitHub` 上的项目
 部署环境：您的 `GitHub` 项目将要部署的目标环境，可能是 Server、PC 或者 `VPS`
 域名或 ip：您的部署环境的`外网`域名或 ip
