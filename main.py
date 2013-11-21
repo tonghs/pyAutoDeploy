@@ -27,7 +27,7 @@ app = web.application(urls, globals())
 render = web.template.render(setting.CUR_DIR % 'templates/', base='base')
 render_without_base = web.template.render(setting.CUR_DIR % 'templates/')
 
-application = app.wsgifunc()
+#application = app.wsgifunc()
 
 def notfound():
     return web.notfound(render_without_base.error('404!'))
@@ -152,6 +152,10 @@ class detail:
 
 
 if __name__ == '__main__':
-    app.notfound = notfound
-    app.internalerror = internalerror
+    application = app
+    application.notfound = app.notfound = notfound
+    application.internalerror = app.internalerror = internalerror
+    application = app.wsgifunc()
+    #app.notfound = notfound
+    #app.internalerror = internalerror
     app.run()
