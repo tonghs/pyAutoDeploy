@@ -23,12 +23,17 @@ urls = (
 )
 
 app = web.application(urls, globals())
+
 render = web.template.render(setting.CUR_DIR % 'templates/', base='base')
+render_without_base = web.template.render(setting.CUR_DIR % 'templates/')
 
 application = app.wsgifunc()
 
-if __name__ == '__main__':
-    app.run()
+def notfound():
+    return web.notfound(render_without_base.error('404!'))
+
+def internalerror():
+    return web.internalerror(render_without_base.error('500!'))
 
 
 class faviconICO(object):
@@ -143,3 +148,9 @@ class detail:
             log = list_log[0][0]
 
         return render.detail(log)
+
+
+if __name__ == '__main__':
+    app.notfound = notfound
+    app.internalerror = internalerror
+    app.run()
