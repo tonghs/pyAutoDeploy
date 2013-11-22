@@ -85,3 +85,7 @@ input[type=text]{
     font-family: 'Courier New';
     line-height: 17px;
 }
+
+.align_r{
+    text-align: right;
+}
