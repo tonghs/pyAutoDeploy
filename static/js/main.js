@@ -11,7 +11,17 @@ $(document).ready(function(){
     resize();
     $(window).resize(resize);
     get_cur_log();
+    auto_refresh()
 });
+
+function auto_refresh(){
+    var url = window.location.href;
+    if (url.indexOf('ar') > 0){
+         setTimeout(function() {
+             self.location.reload();
+         }, 5000);
+    }
+}
 
 function get_cur_log(){
     $.get('/get_cur_log', function(data){
