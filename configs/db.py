@@ -29,3 +29,5 @@ SELECT_LOG_CONTENT_BY_ID = 'select content from tb_log where id = %d;'
 
 INSERT_TO_LOG = 'insert into tb_log (job_id, exe_time, state, content) values (%d, "%s", %d, "%s");'
 
+DELETE_LOG = 'delete from tb_log where job_id = %d;'
+

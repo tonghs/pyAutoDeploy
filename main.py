@@ -109,6 +109,7 @@ class delete:
 
         conn = sqlite3.connect(db.DB)
         conn.execute(db.DELETE_JOB % int(job_id))
+        conn.execute(db.DELETE_LOG % int(job_id))
         conn.commit()
         conn.close()
 
