@@ -12,15 +12,32 @@ $(document).ready(function(){
     $(window).resize(resize);
     get_cur_log();
     auto_refresh()
+
 });
 
 function auto_refresh(){
     var url = window.location.href;
     if (url.indexOf('ar') > 0){
-         setTimeout(function() {
-             self.location.reload();
-         }, 5000);
+        $('#AR').html('停止刷新');
+        $('#AR').click(disableAR);
+        setTimeout(function() {
+            self.location.reload();
+        }, 5000);
+    } else {
+        $('#AR').click(enableAR);
     }
+}
+
+function enableAR(){
+    $('#AR').html('停止刷新');
+    window.location.href += "?ar";
+    $('AR').click(disableAR);
+}
+
+function disableAR(){
+    $('#AR').html('自动刷新');
+    window.location.href = window.location.href.split('?ar')[0];
+    $('AR').click(enableAR);
 }
 
 function get_cur_log(){
