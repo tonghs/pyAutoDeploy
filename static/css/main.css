@@ -89,3 +89,13 @@ input[type=text]{
 .align_r{
     text-align: right;
 }
+
+.left{
+    float: left;
+    width: 150px;
+}
+
+.right{
+    float: left;
+    margin-left: 10px;
+}

@@ -14,6 +14,7 @@ $(document).ready(function(){
 
 function resize(){
     $('.main').css('min-height', $(window).height() - 100)
+    $('.left').css('min-height', $('.main').height() - 10);
 }
 
 function del(id, obj){
