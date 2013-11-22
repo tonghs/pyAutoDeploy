@@ -10,7 +10,23 @@ $(document).ready(function(){
 //    });
     resize();
     $(window).resize(resize);
+    get_cur_log();
 });
+
+function get_cur_log(){
+    $.get('/get_cur_log', function(data){
+        if (data != null && data != ''){
+            var arr = new Array();
+            arr = $.parseJSON(data);
+            var str = '';
+            for (var i = 0;i < arr.length; i++){
+                str += '<a href="/detail/' + arr[i].log_id + '" title="' + arr[i].exe_time + '">' + arr[i].name + '</a></br>';
+            }
+
+            $('#current').html(str);
+        }
+    }).error();
+}
 
 function resize(){
     $('.main').css('min-height', $(window).height() - 100)
@@ -34,9 +50,7 @@ function execute(id, obj){
             obj.parent().parent().children('.state').html(data.msg);
             obj.parent().parent().children('.exe_time').html(data.exe_time);
             obj.parent().parent().children('.state').attr('class', 'state state' + data.state);
-
+            get_cur_log();
         }
-    }).error(function(){
-
-        });
+    }).error();
 }

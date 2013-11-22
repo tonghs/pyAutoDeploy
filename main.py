@@ -19,7 +19,8 @@ urls = (
     '/del', 'delete',
     '/execute', 'execute',
     '/history/(\d+)', 'history',
-    '/detail/(\d+)', 'detail'
+    '/detail/(\d+)', 'detail',
+    '/get_cur_log', 'cur_log'
 )
 
 app = web.application(urls, globals())
@@ -155,6 +156,20 @@ class detail:
             log = list_log[0][0]
 
         return render.detail(log)
+
+
+class cur_log:
+    def GET(self):
+        conn = sqlite3.connect(db.DB)
+        cur = conn.cursor()
+        cur.execute(db.SELECT_TOP10_LOG)
+        list_dic = []
+        for log in cur:
+            name, exe_time, log_id = log
+            dic = {'name': name, 'log_id': log_id, 'exe_time': exe_time}
+            list_dic.append(dic)
+
+        return json.dumps(list_dic)
 
 
 if __name__ == '__main__':

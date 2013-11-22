@@ -92,10 +92,12 @@ input[type=text]{
 
 .left{
     float: left;
-    width: 150px;
+    line-height: 18px;
+    text-align: right;
+    min-width: 150px;
 }
 
 .right{
     float: left;
-    margin-left: 10px;
+    margin-left: 20px;
 }

@@ -20,8 +20,22 @@ $def with (content)
 </div>
 <div class="wrapper">
     <div class="main">
-        $:content
+        <!--<form method="post" action="/push">-->
+            <!--<input id="btn" type="button" value="OK">-->
+        <!--</form>-->
+        <div class="left">
+            <a href='/'>首页</a><br>
+            <a href='/add'>新建 Job</a><br><br>
+            最近执行：
+            <div id="current">
+
+            </div>
+        </div>
+        <div class="right">
+            $:content
+        </div>
     </div>
+    <div class="clear"></div>
 </div>
 <div class="footer">
     <a href="https://github.com/tonghuashuai/pyAutoDeploy">基于 Python web.py</a>
