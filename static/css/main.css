@@ -13,7 +13,7 @@ table, td {
 }
 
 input[type=text]{
-    width: 445px;
+    width: 510px;
 }
 
 .wrapper{
@@ -74,9 +74,11 @@ input[type=text]{
 .state0{
     color: red;
 }
+
 .state1{
     color: green;
 }
+
 .state2{
     color: black;
 }
@@ -84,6 +86,7 @@ input[type=text]{
 .cmd{
     font-family: 'Courier New';
     line-height: 17px;
+    max-width: 680px;
 }
 
 .align_r{
@@ -95,6 +98,7 @@ input[type=text]{
     line-height: 18px;
     text-align: right;
     min-width: 100px;
+    max-width: 240px;
 }
 
 .right{

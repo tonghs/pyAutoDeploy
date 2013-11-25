@@ -1,7 +1,6 @@
 #coding=utf-8
 from datetime import datetime
 import json
-import os
 import web
 import sqlite3
 from configs import db
@@ -61,7 +60,8 @@ class index:
             url = job[2]
             exe_time = job[3]
             id = job[4]
-            dic_job = {'state': state, 'state_text': state_text, 'name': name, 'url': url, 'exe_time': exe_time, 'id': id }
+            dic_job = {'state': state, 'state_text': state_text, 'name': name, 'url': url,
+                       'exe_time': exe_time, 'id': id}
             jobs.append(dic_job)
         return render.index(jobs)
 
