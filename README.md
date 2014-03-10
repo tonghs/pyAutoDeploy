@@ -20,7 +20,7 @@ Python（2.7） + web.py
 
 **安装** （`Ubuntu 12.10`）
 
-假设部署环境已安装 `Python` `web.py` `nginx` `uWSGI`。
+假设部署环境已安装 `Python` `web.py` `nginx` `uWSGI` `uwsgi-plugin-python`。
 
     sudo git clone https://github.com/tonghuashuai/pyAutoDeploy
     cd pyAutoDeploy
