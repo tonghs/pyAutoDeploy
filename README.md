@@ -38,7 +38,7 @@ Python（2.7） + web.py
 **使用**
 
 1. （在 `GitHub` 网站或 IDE 中操作）在 `GitHub` 项目中添加 cmd.sh 文件，可维护 cmd.sh 文件添加命令，这些命令将在 pull 代码后执行
-1. （在 `GitHub` 网站中操作）在 GitHub 项目中设置 WebHook URL：http://公网域名或ip:8080/push
+1. （在 `GitHub` 网站中操作）在 GitHub 项目中设置 WebHook URL：http://公网域名或ip:8080/push，Payload version 选择 'Payload version'
 1. （在部署环境中操作）clone `GitHub` 项目到部署环境
 1. （在 pyAutoDeploy 中操作）新建 job
 1. （在 pyAutoDeploy 中操作）输入 `GitHub` 项目地址（结尾没有 .git）
